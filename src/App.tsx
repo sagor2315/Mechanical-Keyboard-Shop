@@ -1,9 +1,9 @@
-import Navabr from "./components/shared-components/header/navabr";
+import MainLayout from "./layout/MainLayout";
 
 function App() {
   return (
     <div>
-      <Navabr />
+      <MainLayout />
     </div>
   );
 }

@@ -21,15 +21,18 @@ export const theme = {
       border: "hsl(var(--border))",
       input: "hsl(var(--input))",
       ring: "hsl(var(--ring))",
-      background: "hsl(var(--background))",
+      background: {
+        DEFAULT: "#F5F5F5",
+        dark: "hsl(var(--background))", // Keeping the existing variable for dark mode
+      },
       foreground: "hsl(var(--foreground))",
       primary: {
-        DEFAULT: "hsl(var(--primary))",
-        foreground: "hsl(var(--primary-foreground))",
+        DEFAULT: "#007BFF",
+        foreground: "#FFFFFF", // Assuming white text on primary background
       },
       secondary: {
-        DEFAULT: "hsl(var(--secondary))",
-        foreground: "hsl(var(--secondary-foreground))",
+        DEFAULT: "#0056b3",
+        foreground: "#FFFFFF", // Assuming white text on secondary background
       },
       destructive: {
         DEFAULT: "hsl(var(--destructive))",
@@ -40,8 +43,8 @@ export const theme = {
         foreground: "hsl(var(--muted-foreground))",
       },
       accent: {
-        DEFAULT: "hsl(var(--accent))",
-        foreground: "hsl(var(--accent-foreground))",
+        DEFAULT: "#FF7F50",
+        foreground: "#FFFFFF", // Assuming white text on accent background
       },
       popover: {
         DEFAULT: "hsl(var(--popover))",
@@ -51,6 +54,7 @@ export const theme = {
         DEFAULT: "hsl(var(--card))",
         foreground: "hsl(var(--card-foreground))",
       },
+      text: "#333333",
     },
     borderRadius: {
       lg: "var(--radius)",

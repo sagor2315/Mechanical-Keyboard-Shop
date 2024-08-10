@@ -5,79 +5,42 @@ import {
   CardHeader,
   CardTitle,
 } from "../../ui/card";
-import img1 from "../../../img/magegee2.jpg";
-import img2 from "../../../img/magegee1.jpg";
-import img3 from "../../../img/redragon.webp";
 
 import { Rating } from "@smastrom/react-rating";
 import "@smastrom/react-rating/style.css";
-import { Button } from "../../ui/button";
 import HeadingTitle from "../../reusable-components/HeadingTitle";
+import { Link, NavLink } from "react-router-dom";
+import ButtonReuseable, {
+  productProps,
+} from "../../reusable-components/ButtonReuseable";
+import { useEffect, useState } from "react";
+
+type ProductsState = productProps["product"][];
 
 const FeaturedProducts = () => {
-  const productsList = [
-    {
-      img: img1,
-      title: "Magegee Epomaker TH40",
-      brand: "Magegee",
-      quantity: 10,
-      price: 70,
-      rating: 4.5,
-    },
-    {
-      img: img2,
-      title: "Magegee Epomaker TH40",
-      brand: "Magegee",
-      quantity: 10,
-      price: 70,
-      rating: 4.5,
-    },
-    {
-      img: img3,
-      title: "Magegee Epomaker TH40",
-      brand: "Magegee",
-      quantity: 10,
-      price: 70,
-      rating: 4.5,
-    },
-    {
-      img: img3,
-      title: "Magegee Epomaker TH40",
-      brand: "Magegee",
-      quantity: 10,
-      price: 70,
-      rating: 4.5,
-    },
-    {
-      img: img2,
-      title: "Magegee Epomaker TH40",
-      brand: "Magegee",
-      quantity: 10,
-      price: 70,
-      rating: 4.5,
-    },
-    {
-      img: img1,
-      title: "Magegee Epomaker TH40",
-      brand: "Magegee",
-      quantity: 10,
-      price: 70,
-      rating: 4.5,
-    },
-  ];
+  const [products, setProducts] = useState<ProductsState>([]);
+  useEffect(() => {
+    fetch("/product.json")
+      .then((data) => data.json())
+      .then((data) => setProducts(data));
+  }, []);
+
+  console.log(products);
+
   return (
-    <div className="max-w-screen-xl mx-auto md:px-5 px-4 py-5">
+    <div className="max-w-screen-xl mx-auto md:px-5 px-4 pt-5">
       <HeadingTitle>{"Featured Products"}</HeadingTitle>
 
       <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1  gap-5">
-        {productsList.map((product, idx) => (
+        {products.map((product, idx) => (
           <Card
-            className="bg-transparent rounded-none border-none shadow-md shadow-gray-200 "
+            // style={style}
+            className="group hover:shadow bg-transparent rounded-none border-none shadow-md shadow-gray-200 "
             key={idx}
           >
-            <div className="overflow-hidden">
+            <div className="group overflow-hidden">
               <img
-                className="hover:scale-125 transition-all duration-500"
+                className="group group-hover:scale-125 transition-all duration-500"
                 src={product?.img}
                 alt="imgage"
               />
@@ -103,10 +66,18 @@ const FeaturedProducts = () => {
               </p>
             </CardContent>
             <CardFooter className="pl-2 pb-2">
-              <Button>See Details</Button>
+              <Link to={`/show-details/${product?.id}`}>
+                <ButtonReuseable>{"See Details"}</ButtonReuseable>
+              </Link>
             </CardFooter>
           </Card>
         ))}
+      </div>
+
+      <div className="flex justify-center pt-10 pb-5">
+        <NavLink to="/product">
+          <ButtonReuseable>{"See More"}</ButtonReuseable>
+        </NavLink>
       </div>
     </div>
   );

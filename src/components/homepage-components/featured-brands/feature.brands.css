@@ -1,0 +1,14 @@
+@keyframes bgSlide {
+  from {
+    background-position: 0%;
+  }
+  to {
+    background-position: 1500%;
+  }
+}
+
+.hover\:bg-slide:hover {
+  background: linear-gradient(to right, #f5f5f5, #007bff); /* Example colors */
+  background-size: 93% 200%;
+  animation: bgSlide 2s forwards;
+}

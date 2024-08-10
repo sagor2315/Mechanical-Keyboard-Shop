@@ -9,14 +9,19 @@ import { ShoppingCart } from "lucide-react";
 
 import { Keyboard } from "lucide-react";
 
+type classNameProps = {
+  isActive: boolean;
+  isPending: boolean;
+};
+
 const Navabr = () => {
   return (
-    <div className="sticky top-0 z-50 bg-background ">
-      <header className="flex h-16 items-center justify-between gap-4 text-muted-foreground w-full max-w-screen-xl mx-auto px-4 md:px-5">
+    <div className="sticky top-0 z-50 bg-background">
+      <header className="flex h-16 items-center justify-between gap-4 text-muted-foreground w-full px-4 md:px-5 max-w-screen-xl mx-auto">
         <div className="hidden md:block">
           <NavLink
             to="/"
-            className="flex items-center gap-2 text-lg font-semibold md:text-base"
+            className="flex items-center gap-2 text-lg font-semibold md:text-base "
           >
             <div className="font-semibold border-2 bg-primary border-primary rounded py-0.5 px-1">
               <Keyboard className="text-white" />
@@ -32,7 +37,12 @@ const Navabr = () => {
           <SheetTrigger asChild>
             <Button
               size="icon"
-              className="shrink-0 md:hidden bg-primary text-white"
+              className={`shrink-0 md:hidden bg-primary text-white ${({
+                isActive,
+                isPending,
+              }: classNameProps) =>
+                isPending ? "pending" : isActive ? "active" : ""}
+              `}
             >
               <Menu className="h-5 w-5" />
               <span className="sr-only">Toggle navigation menu</span>
@@ -92,37 +102,74 @@ const Navabr = () => {
           <nav className="hidden flex-col gap-6 text-lg font-medium md:flex md:flex-row md:items-center md:gap-5 md:text-sm lg:gap-6">
             <NavLink
               to="/"
-              className="text-text transition-colors hover:text-primary hover:font-medium text-base"
+              className={({ isActive, isPending }: classNameProps) =>
+                isPending
+                  ? "pending"
+                  : isActive
+                  ? "active text-primary transition-colors hover:text-primary hover:font-medium text-base font-semibold"
+                  : "text-text transition-colors hover:text-primary hover:font-medium text-base"
+              }
             >
               Home
             </NavLink>
+
             <NavLink
               to="/product"
-              className="text-text transition-colors hover:text-primary hover:font-medium text-base"
+              className={({ isActive, isPending }: classNameProps) =>
+                isPending
+                  ? "pending"
+                  : isActive
+                  ? "active text-primary transition-colors hover:text-primary hover:font-medium text-base font-semibold"
+                  : "text-text transition-colors hover:text-primary hover:font-medium text-base"
+              }
             >
               Products
             </NavLink>
             <NavLink
               to="/aboutus"
-              className="text-text transition-colors hover:text-primary hover:font-medium text-base"
+              className={({ isActive, isPending }: classNameProps) =>
+                isPending
+                  ? "pending"
+                  : isActive
+                  ? "active text-primary transition-colors hover:text-primary hover:font-medium text-base font-semibold"
+                  : "text-text transition-colors hover:text-primary hover:font-medium text-base"
+              }
             >
               About Us
             </NavLink>
             <NavLink
               to="/contactus"
-              className="text-text transition-colors hover:text-primary hover:font-medium text-base"
+              className={({ isActive, isPending }: classNameProps) =>
+                isPending
+                  ? "pending"
+                  : isActive
+                  ? "active text-primary transition-colors hover:text-primary hover:font-medium text-base font-semibold"
+                  : "text-text transition-colors hover:text-primary hover:font-medium text-base"
+              }
             >
               Contact Us
             </NavLink>
             <NavLink
               to="/dashboard"
-              className="text-text transition-colors hover:text-primary hover:font-medium text-base"
+              className={({ isActive, isPending }: classNameProps) =>
+                isPending
+                  ? "pending"
+                  : isActive
+                  ? "active text-primary transition-colors hover:text-primary hover:font-medium text-base font-semibold"
+                  : "text-text transition-colors hover:text-primary hover:font-medium text-base"
+              }
             >
               Dashboard
             </NavLink>
             <NavLink
               to="/dashboard"
-              className="text- transition-colors hover:text-primary hover:font-medium text-base"
+              className={({ isActive, isPending }: classNameProps) =>
+                isPending
+                  ? "pending"
+                  : isActive
+                  ? "active text-primary transition-colors hover:text-primary hover:font-medium text-base font-semibold"
+                  : "text-text transition-colors hover:text-primary hover:font-medium text-base"
+              }
             >
               <div className="relative h-10 w-10 bg-primary rounded flex justify-center items-center">
                 <ShoppingCart className="text-white absolute bottom-1" />
@@ -132,7 +179,7 @@ const Navabr = () => {
               </div>
             </NavLink>
           </nav>
-          <div className="md:hidden text-text transition-colors hover:text-primary hover:font-medium text-base">
+          <div className="md:hidden text-text transition-colors hover:text-primary hover:font-medium text-base font-semibold">
             <div className="relative h-10 w-10 bg-primary rounded flex justify-center items-center">
               <ShoppingCart className="text-white absolute bottom-1" />
               <p className="absolute inset-0 flex justify-center items-center -top-6 text-white z-10">

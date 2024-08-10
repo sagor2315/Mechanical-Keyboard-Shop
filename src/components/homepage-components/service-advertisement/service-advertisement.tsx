@@ -5,7 +5,7 @@ import cashon from "../../../img/cashondele.png";
 
 const ServiceAdvertisement = () => {
   return (
-    <div className="max-w-screen-xl mx-auto md:px-5 px-4 pt-10 pb-5">
+    <div className="max-w-screen-xl mx-auto md:px-5 px-4 pt-[60px] pb-5">
       <div className="w-full grid lg:grid-cols-4 md:grid-cols-2 gap-3">
         <div className="flex items-center gap-2 group pl-3 shadow-md shadow-gray-200 hover:shadow bg-transparent text-center py-5 overflow-hidden relative">
           <div className=" flex justify-start w-16 p-3 bg-text  rounded-full transform transition-all duration-300">

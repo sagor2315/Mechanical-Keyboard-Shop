@@ -14,15 +14,22 @@ import { Carousel, CarouselContent, CarouselItem } from "../../ui/carousel";
 import { Card, CardContent } from "../../ui/card";
 import { Progress } from "../../ui/progress";
 
-const images = [imgage1, imgage2, imgage3, imgage4, imgage5, imgage6];
+const images = [
+  { brand: "Magegee", img: imgage1, discount: 25 },
+  { brand: "Logitech", img: imgage2, discount: 20 },
+  { brand: "Redragon", img: imgage3, discount: 15 },
+  { brand: "EPOMAKER", img: imgage4, discount: 30 },
+  { brand: "8Bitdo", img: imgage5, discount: 28 },
+  { brand: "KEMOVE", img: imgage6, discount: 10 },
+];
 export function HeroSection() {
   const plugin = React.useRef(
     Autoplay({ delay: 2000, stopOnInteraction: true })
   );
 
   return (
-    <div className="md:px-5 px-4">
-      <div className="grid lg:grid-cols-12 gap-3 w-full max-w-screen-2xl mx-auto h-[calc(100vh-64px)]">
+    <div className="">
+      <div className="grid lg:grid-cols-12 gap-3 w-full h-[calc(100vh-64px)]">
         <div className="col-span-8 row-span-6 w-full h-full flex">
           <Carousel
             plugins={[plugin.current]}
@@ -31,7 +38,7 @@ export function HeroSection() {
             onMouseLeave={plugin.current.reset}
           >
             <CarouselContent className="h-full">
-              {images.map((image, index) => (
+              {images.map((data, index) => (
                 <CarouselItem key={index} className="h-full relative bottom-0">
                   <Card className="rounded-none border-none h-full  shadow-none">
                     <CardContent className="flex items-center justify-center p-0 rounded-0  h-[calc(100vh-64px)]">
@@ -41,23 +48,30 @@ export function HeroSection() {
                             Brand
                           </h2>
                           <h2 className="md:text-7xl text-4xl font-bold text-white">
-                            MageGee
+                            {data?.brand}
                           </h2>
                         </div>
+
+                        {/* <p className="text-white text-center lg:w-3/4 mx-auto">
+                          MageGee focuses on mechanical keyboards with
+                          customizable backlighting and ergonomic designs. They
+                          are known for their affordability and a range of
+                          options for different typing preferences.
+                        </p> */}
                         <div className="text-center rounded py-3 md:w-1/2 w-4/6 mx-auto">
                           <Progress
-                            value={25}
+                            value={data?.discount}
                             aria-label="25% increase"
                             className="bg-accent"
                           />
                           <p className="bg-primary rounded-full mt-3 py-1 text-white">
-                            +25% off this week
+                            +{data?.discount}% off this week
                           </p>
                         </div>
                       </div>
                       <img
                         className="object-cover h-full w-full"
-                        src={image}
+                        src={data?.img}
                         alt={`img${index + 1}`}
                       />
                     </CardContent>
@@ -70,6 +84,7 @@ export function HeroSection() {
         <div className="hidden lg:block lg:col-span-4 col-span-8 row-span-3 bg-black bg-opacity-60">
           <img src={img1} className="object-cover h-full w-full" alt="" />
         </div>
+
         <div className="hidden lg:block row-span-3 lg:col-span-4 col-span-8">
           <img src={img2} className="object-cover h-full w-full" alt="" />
         </div>

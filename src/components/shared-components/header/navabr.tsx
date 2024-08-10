@@ -161,16 +161,7 @@ const Navabr = () => {
             >
               Dashboard
             </NavLink>
-            <NavLink
-              to="/dashboard"
-              className={({ isActive, isPending }: classNameProps) =>
-                isPending
-                  ? "pending"
-                  : isActive
-                  ? "active text-primary transition-colors hover:text-primary hover:font-medium text-base font-semibold"
-                  : "text-text transition-colors hover:text-primary hover:font-medium text-base"
-              }
-            >
+            <NavLink to="/cart-page">
               <div className="relative h-10 w-10 bg-primary rounded flex justify-center items-center">
                 <ShoppingCart className="text-white absolute bottom-1" />
                 <p className="absolute inset-0 flex justify-center items-center -top-6 text-white z-10">
@@ -179,14 +170,17 @@ const Navabr = () => {
               </div>
             </NavLink>
           </nav>
-          <div className="md:hidden text-text transition-colors hover:text-primary hover:font-medium text-base font-semibold">
+          <NavLink
+            to="/cart-page"
+            className="md:hidden text-text transition-colors hover:text-primary hover:font-medium text-base font-semibold"
+          >
             <div className="relative h-10 w-10 bg-primary rounded flex justify-center items-center">
               <ShoppingCart className="text-white absolute bottom-1" />
               <p className="absolute inset-0 flex justify-center items-center -top-6 text-white z-10">
                 0
               </p>
             </div>
-          </div>
+          </NavLink>
         </div>
       </header>
     </div>

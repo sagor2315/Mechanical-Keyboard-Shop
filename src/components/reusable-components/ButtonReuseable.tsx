@@ -20,10 +20,7 @@ type ButtonProps = {
 const ButtonReuseable = ({ children }: ButtonProps) => {
   return (
     <div>
-      <Button
-        // onClick={() => handleSeeDetails(product)}
-        className="hover:bg-accent hover:transition-all hover:duration-500 transition-all duration-1000"
-      >
+      <Button className="hover:bg-accent hover:transition-all hover:duration-500 transition-all duration-1000">
         {children}
       </Button>
     </div>

@@ -17,7 +17,6 @@ const FeaturedBrands = () => {
     { brand: "Epomaker", img: EPOMAKER_logo },
     { brand: "8Bitdo", img: B8itdo_logo },
     { brand: "Kemove", img: KEMOVE_logo },
-    // "XISOGUU",
   ];
   return (
     <div className="max-w-screen-xl mx-auto md:px-5 px-4 pt-5 pb-10">

@@ -30,11 +30,6 @@ const KeyboardAccessories = () => {
             key={idx}
             className="group h-40 relative bg-white overflow-hidden "
           >
-            {/* <div className="group px-3 py-1 absolute inset-0 flex justify-center items-start  text-xl font-semibold text-white">
-              <p className="bg-text bg-opacity-80 px-3 py-1 rounded-full">
-                {data?.title}
-              </p>
-            </div> */}
             <img
               className="group-hover:scale-125 group-hover:transition-all group-hover:duration-500 duration-500 transition-all w-full h-full p-5 object-cover overflow-hidden"
               src={data?.img}

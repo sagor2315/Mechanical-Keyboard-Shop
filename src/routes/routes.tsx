@@ -7,6 +7,8 @@ import Contactus from "../pages/contact-us/contact-us";
 import Dashboard from "../pages/dashboard/dashboard";
 import ProductDetails from "../pages/product-details/product-details";
 import CartPage from "../pages/cart-page/cart-page";
+import CheckoutPage from "../pages/checkout-page/checkout-page";
+import SuccessPage from "../pages/success-page/success-page";
 
 const router = createBrowserRouter([
   {
@@ -40,6 +42,14 @@ const router = createBrowserRouter([
       {
         path: "/cart-page",
         element: <CartPage />,
+      },
+      {
+        path: "/checkout",
+        element: <CheckoutPage />,
+      },
+      {
+        path: "/success-page",
+        element: <SuccessPage />,
       },
     ],
   },

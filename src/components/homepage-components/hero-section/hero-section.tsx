@@ -52,12 +52,6 @@ export function HeroSection() {
                           </h2>
                         </div>
 
-                        {/* <p className="text-white text-center lg:w-3/4 mx-auto">
-                          MageGee focuses on mechanical keyboards with
-                          customizable backlighting and ergonomic designs. They
-                          are known for their affordability and a range of
-                          options for different typing preferences.
-                        </p> */}
                         <div className="text-center rounded py-3 md:w-1/2 w-4/6 mx-auto">
                           <Progress
                             value={data?.discount}

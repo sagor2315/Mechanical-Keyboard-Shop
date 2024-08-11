@@ -25,7 +25,7 @@ const FeaturedProducts = () => {
       .then((data) => setProducts(data));
   }, []);
 
-  console.log(products);
+  // console.log(products);
 
   return (
     <div className="max-w-screen-xl mx-auto md:px-5 px-4 pt-5">
@@ -34,7 +34,6 @@ const FeaturedProducts = () => {
       <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1  gap-5">
         {products.map((product, idx) => (
           <Card
-            // style={style}
             className="group hover:shadow bg-transparent rounded-none border-none shadow-md shadow-gray-200 "
             key={idx}
           >

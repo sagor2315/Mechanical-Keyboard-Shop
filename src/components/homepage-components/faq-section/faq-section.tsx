@@ -6,28 +6,6 @@ import {
   AccordionTrigger,
 } from "../../ui/accordion";
 
-/* 
-
-Q: What are mechanical keyboards?
-A: Mechanical keyboards use individual switches for each key, offering tactile feedback and durability.
-
-Q: Why are mechanical keyboards better?
-A: They provide better typing feel, customization options, and longevity compared to membrane keyboards.
-
-Q: What are the different types of switches?
-A: Common types include Cherry MX, Gateron, and Kailh, each offering unique tactile and sound profiles.
-
-Q: Can I customize my mechanical keyboard?
-A: Yes, you can customize keycaps, switches, and even the case and layout.
-
-Q: Are mechanical keyboards loud?
-A: Some switches are loud, like clicky switches, but others, like linear or silent switches, are quieter.
-
-Q: Do mechanical keyboards improve typing speed?
-A: Many users find that mechanical keyboards improve typing speed and accuracy due to better tactile feedback.
-
-*/
-
 const FaqSection = () => {
   return (
     <div className="max-w-screen-xl mx-auto md:px-5 px-4 py-5">

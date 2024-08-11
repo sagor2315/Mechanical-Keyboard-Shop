@@ -50,10 +50,6 @@ const ProductPage = () => {
     setToggle(!toggle);
   };
 
-  // const handleSeeDetails = (product: productProps["product"]) => {
-  //   console.log("I ama here", product);
-  // };
-
   useEffect(() => {
     fetch("/product.json")
       .then((data) => data.json())
@@ -151,12 +147,7 @@ const ProductPage = () => {
             </CardContent>
             <CardFooter className="pl-2 pb-2">
               <Link to={`/show-details/${product?.id}`}>
-                <ButtonReuseable
-                // handleSeeDetails={handleSeeDetails}
-                // product={product}
-                >
-                  {"See Details"}
-                </ButtonReuseable>
+                <ButtonReuseable>{"See Details"}</ButtonReuseable>
               </Link>
             </CardFooter>
           </Card>

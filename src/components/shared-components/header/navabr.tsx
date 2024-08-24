@@ -8,6 +8,7 @@ import { Description } from "@radix-ui/react-dialog";
 import { ShoppingCart } from "lucide-react";
 
 import { Keyboard } from "lucide-react";
+import { useAppSelector } from "../../../redux/hooks";
 
 type classNameProps = {
   isActive: boolean;
@@ -15,6 +16,9 @@ type classNameProps = {
 };
 
 const Navabr = () => {
+  // const totalQuantity = useAppSelector((state) => state?.cart);
+  const cartData = useAppSelector((state) => state?.cart?.cartData);
+
   return (
     <div className="sticky top-0 z-50 bg-background">
       <header className="flex h-16 items-center justify-between gap-4 text-muted-foreground w-full px-4 md:px-5 max-w-screen-xl mx-auto">
@@ -164,8 +168,11 @@ const Navabr = () => {
             <NavLink to="/cart-page">
               <div className="relative h-10 w-10 bg-primary rounded flex justify-center items-center">
                 <ShoppingCart className="text-white absolute bottom-1" />
-                <p className="absolute inset-0 flex justify-center items-center -top-6 text-white z-10">
-                  0
+                <p className="absolute inset-0 flex justify-end items-center -top-8 text-white z-10">
+                  <span className="bg-accent px-2 py-0.5 rounded-full text-base">
+                    {/* {(totalQuantity > 0 && totalQuantity) || 0} */}
+                    {cartData?.length || 0}
+                  </span>
                 </p>
               </div>
             </NavLink>
@@ -176,8 +183,11 @@ const Navabr = () => {
           >
             <div className="relative h-10 w-10 bg-primary rounded flex justify-center items-center">
               <ShoppingCart className="text-white absolute bottom-1" />
-              <p className="absolute inset-0 flex justify-center items-center -top-6 text-white z-10">
-                0
+              <p className="absolute inset-0 flex justify-end items-center -top-8 text-white z-10">
+                <span className="bg-accent px-2 py-0.5 rounded-full text-base">
+                  {/* {(totalQuantity > 0 && totalQuantity) || 0} */}
+                  {cartData?.length || 0}
+                </span>
               </p>
             </div>
           </NavLink>

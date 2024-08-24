@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import ButtonReuseable, {
-  productProps,
-} from "../../components/reusable-components/ButtonReuseable";
+import { productProps } from "../../components/reusable-components/ButtonReuseable";
 import { Rating } from "@smastrom/react-rating";
 import "@smastrom/react-rating/style.css";
+import { Button } from "../../components/ui/button";
+import { addToCart } from "../../redux/features/cartSlice";
+import Swal from "sweetalert2";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 
 type ProductsState = productProps["product"][];
 
@@ -12,16 +14,39 @@ const ProductDetails = () => {
   const [products, setProducts] = useState<ProductsState>([]);
   const { id } = useParams<{ id: string }>();
 
+  const dispatch = useAppDispatch();
+
+  const stockAll = useAppSelector((state) => state?.cart?.stockAll);
+  console.log(stockAll);
+
   useEffect(() => {
     fetch("/product.json")
       .then((data) => data.json())
       .then((data) => setProducts(data));
   }, []);
 
-  console.log(products);
+  // console.log(products);
 
   const singleProduct = products?.find((product) => product?.id === id);
-  console.log(singleProduct);
+  // console.log(singleProduct);
+
+  const handleAddToCart = () => {
+    if (!singleProduct) {
+      return;
+    }
+
+    if (singleProduct.stock > 0) {
+      dispatch(addToCart(singleProduct));
+    } else {
+      Swal.fire({
+        position: "top-end",
+        icon: "error",
+        title: "The product is out of stock!",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+    }
+  };
 
   return (
     <div className="max-w-screen-xl mx-auto md:px-5 px-4 py-5 bg-background">
@@ -41,7 +66,7 @@ const ProductDetails = () => {
             </p>
             <p>
               <span className="font-semibold">Stock:</span>{" "}
-              <span className="font-medium">{singleProduct?.quantity}</span>
+              <span className="font-medium">{singleProduct?.stock}</span>
             </p>
             <p>
               <span className="font-semibold">Price:</span>{" "}
@@ -57,7 +82,13 @@ const ProductDetails = () => {
             </div>
           </div>
 
-          <ButtonReuseable>{"Add To Cart"}</ButtonReuseable>
+          {/* <ButtonReuseable>{"Add To Cart"}</ButtonReuseable> */}
+          <Button
+            onClick={handleAddToCart}
+            disabled={singleProduct?.stock === 0}
+          >
+            Add To Cart
+          </Button>
         </div>
       </div>
     </div>

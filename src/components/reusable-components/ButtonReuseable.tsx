@@ -7,6 +7,7 @@ export type productProps = {
     img: string;
     title: string;
     brand: string;
+    stock: number;
     quantity: number;
     price: number;
     rating: number;

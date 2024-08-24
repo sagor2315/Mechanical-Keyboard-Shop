@@ -139,7 +139,7 @@ const ProductPage = () => {
                 Brand: {product?.brand}
               </p>
               <p className="pb-1 text-lg font-medium text-text">
-                Quantity: {product?.quantity}
+                Quantity: {product?.stock}
               </p>
               <p className="pb-1 text-lg font-medium text-text">
                 Price: ${product?.price}

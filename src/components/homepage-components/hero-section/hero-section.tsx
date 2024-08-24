@@ -33,15 +33,18 @@ export function HeroSection() {
         <div className="col-span-8 row-span-6 w-full h-full flex">
           <Carousel
             plugins={[plugin.current]}
-            className="w-full h-full border-none"
+            className="w-full h-full border border-black bg-black"
             onMouseEnter={plugin.current.stop}
             onMouseLeave={plugin.current.reset}
           >
-            <CarouselContent className="h-full">
+            <CarouselContent className="h-full border border-black">
               {images.map((data, index) => (
-                <CarouselItem key={index} className="h-full relative bottom-0">
-                  <Card className="rounded-none border-none h-full  shadow-none">
-                    <CardContent className="flex items-center justify-center p-0 rounded-0  h-[calc(100vh-64px)]">
+                <CarouselItem
+                  key={index}
+                  className="h-full relative bottom-0 border border-black"
+                >
+                  <Card className="rounded-none  h-full border border-black shadow-none">
+                    <CardContent className="flex items-center justify-center p-0 rounded-0">
                       <div className="absolute  inset-0 flex flex-col justify-center bg-black bg-opacity-60">
                         <div className="flex gap-2 justify-center items-center py-2">
                           <h2 className="bg-primary rounded-full px-5 py-2 text-white md:text-5xl text-2xl font-semibold">

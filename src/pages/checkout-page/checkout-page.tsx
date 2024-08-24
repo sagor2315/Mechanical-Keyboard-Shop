@@ -37,15 +37,18 @@ const CheckoutPage = () => {
     },
   });
 
-  const cashOnDelivery = form.watch("cash");
+  const { name, email, phone, deliveryAdd, cash } = form.watch();
 
   function onSubmit(values: Checkooutprops) {
     console.log(values);
+    handleSuccessPage();
   }
 
   const handleSuccessPage = () => {
     navigate("/success-page");
   };
+
+  const isFormValid = name && email && phone && deliveryAdd && cash;
 
   return (
     <div className="max-w-screen-xl mx-auto md:px-5 px-4 py-5 bg-background">
@@ -160,7 +163,7 @@ const CheckoutPage = () => {
             onClick={handleSuccessPage}
             className="rounded-none mt-8"
             type="submit"
-            disabled={!cashOnDelivery}
+            disabled={!isFormValid}
           >
             Confirm order
           </Button>

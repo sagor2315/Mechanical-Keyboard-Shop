@@ -29,7 +29,7 @@ export function HeroSection() {
 
   return (
     <div className="">
-      <div className="grid lg:grid-cols-12 gap-3 w-full h-[calc(100vh-64px)]">
+      <div className="grid lg:grid-cols-12 gap-3 w-full lg:h-[calc(100vh-64px)]">
         <div className="col-span-8 row-span-6 w-full h-full flex">
           <Carousel
             plugins={[plugin.current]}

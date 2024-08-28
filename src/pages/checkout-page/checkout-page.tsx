@@ -15,6 +15,9 @@ import { RadioGroup, RadioGroupItem } from "../../components/ui/radio-group";
 import { Card } from "../../components/ui/card";
 import { HandCoins } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
+import { removeAllDataFromCart } from "../../redux/features/cartSlice";
+import { useUpdateProductStockMutation } from "../../redux/features/updateProductsStock";
 
 type Checkooutprops = {
   name: string;
@@ -25,6 +28,9 @@ type Checkooutprops = {
 };
 
 const CheckoutPage = () => {
+  const [updateProductStock] = useUpdateProductStockMutation();
+  const cartData = useAppSelector((state) => state?.cart?.cartData);
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
   const form = useForm({
@@ -46,9 +52,14 @@ const CheckoutPage = () => {
 
   const handleSuccessPage = () => {
     navigate("/success-page");
+    dispatch(removeAllDataFromCart());
+    const productInfo = cartData;
+    updateProductStock(productInfo);
   };
 
   const isFormValid = name && email && phone && deliveryAdd && cash;
+
+  console.log(cartData);
 
   return (
     <div className="max-w-screen-xl mx-auto md:px-5 px-4 py-5 bg-background">

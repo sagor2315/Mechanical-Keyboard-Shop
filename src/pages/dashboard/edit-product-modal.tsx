@@ -10,7 +10,7 @@ import {
 } from "../../components/ui/form";
 
 import { Textarea } from "../../components/ui/textarea";
-import { Plus } from "lucide-react";
+import { Cog } from "lucide-react";
 
 import { Button } from "../../components/ui/button";
 import {
@@ -23,75 +23,68 @@ import {
   DialogTrigger,
 } from "../../components/ui/dialog";
 import { Input } from "../../components/ui/input";
-import { useCreateNewProductMutation } from "../../redux/features/createProduct";
+import { useGetAllProductsQuery } from "../../redux/features/allProductsApi";
+import { productProps } from "../../components/reusable-components/ButtonReuseable";
+import { useUpdateProductMutation } from "../../redux/features/updateProduct";
+import Swal from "sweetalert2";
 
-// import Swal from "sweetalert2";
-
-type ProductPropsType = {
-  image: string;
-  title: string;
-  rating: number;
-  brand: string;
-  stock: number /*here stock is assigned insted of available quantity */;
-  price: number;
-  description: string;
+type ProductFormType = {
+  image: string | undefined;
+  title: string | undefined;
+  rating: number | undefined;
+  brand: string | undefined;
+  stock: number | undefined;
+  price: number | undefined;
+  description: string | undefined;
 };
 
-export function AddProductModal() {
-  const [createNewProduct] = useCreateNewProductMutation();
+export function EditProductModal({ _id }: { _id: string }) {
+  const [updateProduct] = useUpdateProductMutation();
+  const { data } = useGetAllProductsQuery({
+    searchItem: "",
+    minPrice: null,
+    maxPrice: null,
+    sortOrder: "",
+  });
+  const productsAll = data?.data as productProps["product"][];
 
-  // console.log("the data =>", data);
-  // console.log("the error =>", error);
-  // console.log("the error =>", createNewProduct);
+  const updateSingleProduct = productsAll?.find((data) => data?._id === _id);
 
   const form = useForm({
     defaultValues: {
-      image: "",
-      title: "",
-      rating: 0,
-      brand: "",
-      stock: 0,
-      price: 0,
-
-      description: "",
+      image: updateSingleProduct?.image,
+      title: updateSingleProduct?.title,
+      rating: updateSingleProduct?.rating,
+      brand: updateSingleProduct?.brand,
+      stock: updateSingleProduct?.stock,
+      price: updateSingleProduct?.price,
+      description: updateSingleProduct?.description,
     },
   });
 
-  async function onSubmit(data: ProductPropsType) {
+  async function onSubmit(data: ProductFormType) {
     try {
-      // const response = await fetch(
-      //   "http://localhost:5000/api/products/create-product",
-      //   {
-      //     method: "POST",
-      //     headers: {
-      //       "Content-Type": "application/json",
-      //     },
-      //     body: JSON.stringify(data),
-      //   }
-      // );
-
-      // if (!response.ok) {
-      //   throw new Error("Something went wrong!");
-      // }
-      // const result = await response.json();
-      // console.log("product created successfully", result);
-
-      const productInfo = data;
-      const res = await createNewProduct(productInfo);
+      const productInfo = { ...data, _id };
+      const res = await updateProduct(productInfo).unwrap();
       const finalData = res?.data;
-      console.log("The post new Product", finalData);
+
+      Swal.fire({
+        position: "top-end",
+        icon: "success",
+        title: `Your ${finalData?.title} has been updated`,
+        showConfirmButton: false,
+        timer: 2500,
+      });
     } catch (error) {
       console.log(error);
     }
-
-    // console.log(data);
   }
 
   return (
     <Dialog>
       <DialogTrigger asChild className="">
-        <Button variant="default">
-          <Plus />
+        <Button variant="default" className="h-6">
+          <Cog className="text-white" />
         </Button>
       </DialogTrigger>
       <DialogContent className=" overflow-y-scroll h-full [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">

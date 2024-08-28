@@ -34,7 +34,7 @@ const CartPage = () => {
 
   const handleIncrease = (data: CartTypes) => {
     if (data && data.stock > 0) {
-      dispatch(increaseProductQuantity(data.id));
+      dispatch(increaseProductQuantity(data._id));
     } else {
       console.log("Cannot increase quantity beyond available stock.");
     }
@@ -42,15 +42,15 @@ const CartPage = () => {
 
   const handleDecrease = (data: CartTypes) => {
     if (data && data.quantity > 0) {
-      dispatch(decreaseProductQuantity(data.id));
+      dispatch(decreaseProductQuantity(data._id));
     } else {
       console.log("Cannot decrease quantity below 1.");
     }
   };
 
   const handleRemoveCart = (data: CartTypes) => {
-    dispatch(removeDataFromCart(data?.id));
-    console.log(data?.id);
+    dispatch(removeDataFromCart(data?._id));
+    console.log(data?._id);
   };
 
   useEffect(() => {
@@ -88,15 +88,15 @@ const CartPage = () => {
                 ) : (
                   cartData.map((data) => (
                     <TableCell
-                      key={data?.id}
+                      key={data?._id}
                       className="flex justify-between items-center"
                     >
                       <ul className="flex gap-5">
                         <img
                           alt="Product image"
-                          className="aspect-square rounded-md object-cover"
-                          height="100"
-                          src={data?.img}
+                          className="rounded-md object-cover"
+                          // height="100"
+                          src={data?.image}
                           width="100"
                         />
                         <ul>

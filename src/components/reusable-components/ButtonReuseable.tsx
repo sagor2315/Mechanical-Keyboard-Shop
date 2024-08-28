@@ -3,14 +3,15 @@ import { Button } from "../ui/button";
 
 export type productProps = {
   product: {
-    id: string;
-    img: string;
+    _id: string;
+    image: string;
     title: string;
     brand: string;
     stock: number;
     quantity: number;
     price: number;
     rating: number;
+    description: string;
   };
 };
 

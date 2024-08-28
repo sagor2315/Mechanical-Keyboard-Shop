@@ -13,34 +13,33 @@ import { Link, NavLink } from "react-router-dom";
 import ButtonReuseable, {
   productProps,
 } from "../../reusable-components/ButtonReuseable";
-import { useEffect, useState } from "react";
 
-type ProductsState = productProps["product"][];
+import { useGetAllProductsQuery } from "../../../redux/features/allProductsApi";
 
 const FeaturedProducts = () => {
-  const [products, setProducts] = useState<ProductsState>([]);
-  useEffect(() => {
-    fetch("/product.json")
-      .then((data) => data.json())
-      .then((data) => setProducts(data));
-  }, []);
-
-  // console.log(products);
+  const { data } = useGetAllProductsQuery({
+    searchItem: "",
+    minPrice: null,
+    maxPrice: null,
+    sortOrder: "",
+  });
+  const productsAll = data?.data.slice(0, 6) as productProps["product"][];
+  // console.log(productsAll);
 
   return (
     <div className="max-w-screen-xl mx-auto md:px-5 px-4 pt-5">
       <HeadingTitle>{"Featured Products"}</HeadingTitle>
 
       <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1  gap-5">
-        {products.map((product, idx) => (
+        {productsAll?.map((product, idx) => (
           <Card
             className="group hover:shadow bg-transparent rounded-none border-none shadow-md shadow-gray-200 "
             key={idx}
           >
-            <div className="group overflow-hidden">
+            <div className="group overflow-hidden h-[265px]">
               <img
-                className="group group-hover:scale-125 transition-all duration-500"
-                src={product?.img}
+                className="group group-hover:scale-125 transition-all duration-500 object-cover h-full"
+                src={product?.image}
                 alt="imgage"
               />
             </div>
@@ -65,7 +64,7 @@ const FeaturedProducts = () => {
               </p>
             </CardContent>
             <CardFooter className="pl-2 pb-2">
-              <Link to={`/show-details/${product?.id}`}>
+              <Link to={`/show-details/${product?._id}`}>
                 <ButtonReuseable>{"See Details"}</ButtonReuseable>
               </Link>
             </CardFooter>

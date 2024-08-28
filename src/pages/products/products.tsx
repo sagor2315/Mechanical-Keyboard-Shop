@@ -24,17 +24,32 @@ import { Input } from "../../components/ui/input";
 import { Button } from "../../components/ui/button";
 import FilterByPrice from "./filter-by-price";
 import { Search } from "lucide-react";
-import { useEffect, useState } from "react";
+import { /* useEffect, */ useState } from "react";
 import { Link } from "react-router-dom";
+import { useGetAllProductsQuery } from "../../redux/features/allProductsApi";
 
 type searchDataType = {
   searchField: string;
 };
-type ProductsState = productProps["product"][];
+// type ProductsState = productProps["product"][];
 
 const ProductPage = () => {
-  const [toggle, setToggle] = useState(false);
-  const [products, setProducts] = useState<ProductsState>([]);
+  const [searchItem, setSearchItem] = useState<string>("");
+  const [minPrice, setMinPrice] = useState<number | null>(null);
+  const [maxPrice, setMaxPrice] = useState<number | null>(null);
+  const [sortOrder, setSortOrder] = useState<string>("desc");
+
+  const [toggle, setToggle] = useState<boolean>(false);
+  // const [products, setProducts] = useState<ProductsState>([]);
+
+  const { data } = useGetAllProductsQuery({
+    searchItem,
+    minPrice,
+    maxPrice,
+    sortOrder,
+  });
+  const productsAll = data?.data;
+  // console.log(productsAll);
 
   const form = useForm({
     defaultValues: {
@@ -43,20 +58,29 @@ const ProductPage = () => {
   });
 
   function onSubmit(data: searchDataType) {
-    console.log(data);
+    setSearchItem(data?.searchField);
+    // console.log(data);
   }
 
   const handleToggle = () => {
     setToggle(!toggle);
+    setSortOrder((provider) => (provider === "desc" ? "asc" : "desc"));
   };
 
-  useEffect(() => {
-    fetch("/product.json")
-      .then((data) => data.json())
-      .then((data) => setProducts(data));
-  }, []);
+  const handleClearAll = () => {
+    setSortOrder("desc");
+    setMaxPrice(null);
+    setMinPrice(null);
+    setSearchItem("");
+  };
 
-  console.log(products?.[0]?.img);
+  // useEffect(() => {
+  //   fetch("/product.json")
+  //     .then((data) => data.json())
+  //     .then((data) => setProducts(data));
+  // }, []);
+
+  // console.log(products?.[0]?.img);
 
   return (
     <div className="max-w-screen-xl mx-auto md:px-5 px-4 pb-5">
@@ -91,7 +115,10 @@ const ProductPage = () => {
         </Form>
         <div className="flex md:justify-between md:flex-row flex-col items-center gap-y-5">
           <div className="md:w-2/5 w-full">
-            <FilterByPrice />
+            <FilterByPrice
+              setMinPrice={setMinPrice}
+              setMaxPrice={setMaxPrice}
+            />
           </div>
 
           <div className="md:w-1/3 w-full flex gap-x-3 justify-end">
@@ -108,12 +135,14 @@ const ProductPage = () => {
                 }`}
               />
             </Button>
-            <Button className="md:w-1/2 w-full">Clear All</Button>
+            <Button onClick={handleClearAll} className="md:w-1/2 w-full">
+              Clear All
+            </Button>
           </div>
         </div>
       </div>
       <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1  gap-5">
-        {products?.map((product: productProps["product"], idx: number) => (
+        {productsAll?.map((product: productProps["product"], idx: number) => (
           <Card
             className="group hover:shadow bg-transparent rounded-none border-none shadow-md shadow-gray-200"
             key={idx}
@@ -121,11 +150,11 @@ const ProductPage = () => {
             <div className="group overflow-hidden">
               <img
                 className="group group-hover:scale-125 transition-all duration-500"
-                src={product?.img}
+                src={product?.image}
                 alt="imgage"
               />
             </div>
-            <CardHeader className="p-2">
+            <CardHeader className="p-2 h-[70px]">
               <CardTitle className="text-xl">{product?.title}</CardTitle>
             </CardHeader>
             <CardContent className="p-2">
@@ -146,7 +175,7 @@ const ProductPage = () => {
               </p>
             </CardContent>
             <CardFooter className="pl-2 pb-2">
-              <Link to={`/show-details/${product?.id}`}>
+              <Link to={`/show-details/${product?._id}`}>
                 <ButtonReuseable>{"See Details"}</ButtonReuseable>
               </Link>
             </CardFooter>

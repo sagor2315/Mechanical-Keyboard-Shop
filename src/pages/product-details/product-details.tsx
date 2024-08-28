@@ -1,33 +1,38 @@
-import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { productProps } from "../../components/reusable-components/ButtonReuseable";
+
 import { Rating } from "@smastrom/react-rating";
 import "@smastrom/react-rating/style.css";
 import { Button } from "../../components/ui/button";
 import { addToCart } from "../../redux/features/cartSlice";
 import Swal from "sweetalert2";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
-
-type ProductsState = productProps["product"][];
+import { useGetAllProductsQuery } from "../../redux/features/allProductsApi";
+import { productProps } from "../../components/reusable-components/ButtonReuseable";
 
 const ProductDetails = () => {
-  const [products, setProducts] = useState<ProductsState>([]);
+  const { data } = useGetAllProductsQuery({
+    searchItem: "",
+    minPrice: null,
+    maxPrice: null,
+    sortOrder: "",
+  });
+  const productsAll = data?.data as productProps["product"][];
+  // console.log(productsAll);
+
   const { id } = useParams<{ id: string }>();
+  // console.log(id);
 
   const dispatch = useAppDispatch();
 
-  const stockAll = useAppSelector((state) => state?.cart?.stockAll);
-  console.log(stockAll);
+  const cartData = useAppSelector((state) => state?.cart?.cartData);
 
-  useEffect(() => {
-    fetch("/product.json")
-      .then((data) => data.json())
-      .then((data) => setProducts(data));
-  }, []);
+  let specificProduct;
+  if (cartData) {
+    specificProduct = cartData.find((data) => data?._id === id);
+    // console.log(specificProduct);
+  }
 
-  // console.log(products);
-
-  const singleProduct = products?.find((product) => product?.id === id);
+  const singleProduct = productsAll?.find((product) => product?._id === id);
   // console.log(singleProduct);
 
   const handleAddToCart = () => {
@@ -35,7 +40,7 @@ const ProductDetails = () => {
       return;
     }
 
-    if (singleProduct.stock > 0) {
+    if (singleProduct?.stock > 0) {
       dispatch(addToCart(singleProduct));
     } else {
       Swal.fire({
@@ -49,10 +54,10 @@ const ProductDetails = () => {
   };
 
   return (
-    <div className="max-w-screen-xl mx-auto md:px-5 px-4 py-5 bg-background">
+    <div className="max-w-screen-xl mx-auto md:px-5 px-4 py-5 bg-background lg:h-[calc(100vh-70px)] ">
       <div className="grid md:grid-cols-2 grid-cols-1 gap-5">
         <div>
-          <img src={singleProduct?.img} alt="img" />
+          <img src={singleProduct?.image} alt="img" />
         </div>
         <div>
           <h1 className="md:text-2xl text-[20px] text-text font-semibold">
@@ -66,7 +71,11 @@ const ProductDetails = () => {
             </p>
             <p>
               <span className="font-semibold">Stock:</span>{" "}
-              <span className="font-medium">{singleProduct?.stock}</span>
+              <span className="font-medium">
+                {specificProduct?.stock || specificProduct?.stock === 0
+                  ? specificProduct?.stock
+                  : singleProduct?.stock}
+              </span>
             </p>
             <p>
               <span className="font-semibold">Price:</span>{" "}
@@ -80,9 +89,11 @@ const ProductDetails = () => {
                 readOnly
               />
             </div>
+            <div>
+              <p>{singleProduct?.description}</p>
+            </div>
           </div>
 
-          {/* <ButtonReuseable>{"Add To Cart"}</ButtonReuseable> */}
           <Button
             onClick={handleAddToCart}
             disabled={singleProduct?.stock === 0}

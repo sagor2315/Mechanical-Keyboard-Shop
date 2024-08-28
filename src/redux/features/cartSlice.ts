@@ -1,8 +1,9 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import Swal from "sweetalert2";
 
 export type CartTypes = {
-  id: string;
-  img: string;
+  _id: string;
+  image: string;
   title: string;
   brand: string;
   stock: number;
@@ -30,38 +31,79 @@ export const cartSlice = createSlice({
   name: "cart",
   initialState,
   reducers: {
+    // addToCart: (state, action: PayloadAction<CartTypes>) => {
+    //   const productAll = action.payload;
+    //   const existingProductData = state?.cartData?.find(
+    //     (data) => data?._id === productAll?._id
+    //   );
+
+    //   if (productAll?.stock > 0) {
+    //     if (existingProductData && existingProductData?.stock > 0) {
+    //       existingProductData.quantity++;
+    //       existingProductData.stock--;
+    //       existingProductData.totalPrice =
+    //         (existingProductData.totalPrice ?? 0) + productAll.price;
+    //     }
+    //     if (!existingProductData) {
+    //       state.cartData.push({
+    //         ...productAll,
+    //         stock: productAll.stock - 1,
+    //         quantity: 1,
+    //         totalPrice: productAll.price,
+    //       });
+    //       // state.stockAll = productAll.stock--;
+    //     }
+
+    //     state.totalQuantity++;
+    //     state.totalPrice += productAll.price;
+    //     // state.stockAll = productAll.stock--;
+    //   } else {
+    //     console.log("Cannot add product with zero or negative quantity");
+    //   }
+    // },
+
     addToCart: (state, action: PayloadAction<CartTypes>) => {
       const productAll = action.payload;
       const existingProductData = state?.cartData?.find(
-        (data) => data?.id === productAll?.id
+        (data) => data?._id === productAll?._id
       );
 
-      if (productAll?.stock > 0) {
-        if (existingProductData) {
+      if (existingProductData) {
+        if (existingProductData.stock > 0) {
           existingProductData.quantity++;
           existingProductData.stock--;
           existingProductData.totalPrice =
             (existingProductData.totalPrice ?? 0) + productAll.price;
+
+          state.totalQuantity++;
+          state.totalPrice += productAll.price;
         } else {
-          state.cartData.push({
-            ...productAll,
-            stock: productAll.stock - 1,
-            quantity: 1,
-            totalPrice: productAll.price,
+          Swal.fire({
+            position: "top-end",
+            icon: "error",
+            title: "The product is out of stock!",
+            showConfirmButton: false,
+            timer: 1500,
           });
-          state.stockAll = productAll.stock--;
         }
+      } else if (productAll?.stock > 0) {
+        state.cartData.push({
+          ...productAll,
+          stock: productAll.stock - 1,
+          quantity: 1,
+          totalPrice: productAll.price,
+        });
+
         state.totalQuantity++;
         state.totalPrice += productAll.price;
-        // state.stockAll = productAll.stock--;
       } else {
-        console.log("Cannot add product with zero or negative quantity");
+        console.log("Cannot add product with zero stock.");
       }
     },
 
     increaseProductQuantity: (state, action: PayloadAction<string>) => {
       const singleitem = state?.cartData.find(
-        (data) => data?.id === action?.payload
+        (data) => data?._id === action?.payload
       );
       if (singleitem && singleitem.stock > 0) {
         singleitem.quantity++;
@@ -73,7 +115,7 @@ export const cartSlice = createSlice({
     },
     decreaseProductQuantity: (state, action: PayloadAction<string>) => {
       const singleitem = state?.cartData.find(
-        (data) => data?.id === action?.payload
+        (data) => data?._id === action?.payload
       );
       if (singleitem && singleitem.quantity > 0) {
         singleitem.quantity--;
@@ -86,7 +128,7 @@ export const cartSlice = createSlice({
 
     removeDataFromCart: (state, action: PayloadAction<string>) => {
       const cartId = action.payload;
-      const singleCart = state.cartData.find((data) => data.id === cartId);
+      const singleCart = state.cartData.find((data) => data._id === cartId);
 
       if (singleCart) {
         state.totalPrice -=
@@ -94,8 +136,13 @@ export const cartSlice = createSlice({
         state.totalQuantity -= singleCart.quantity;
 
         singleCart.stock += singleCart.quantity;
-        state.cartData = state.cartData.filter((data) => data.id !== cartId);
+        state.cartData = state.cartData.filter((data) => data._id !== cartId);
       }
+    },
+    removeAllDataFromCart: (state) => {
+      state.cartData = [];
+      state.totalQuantity = 0;
+      state.totalPrice = 0;
     },
   },
 });
@@ -105,6 +152,7 @@ export const {
   increaseProductQuantity,
   decreaseProductQuantity,
   removeDataFromCart,
+  removeAllDataFromCart,
 } = cartSlice.actions;
 
 export default cartSlice.reducer;

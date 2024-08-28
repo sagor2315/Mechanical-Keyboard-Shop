@@ -55,6 +55,7 @@ const customerInfo = [
   },
   {
     img: avarter5,
+    name: "Colin Inc",
     rating: 4.5,
     comment:
       "Very good buying experience till now! Hope will buy again another fefature of my current brand",

@@ -101,13 +101,21 @@ const Footer = () => {
         </div>
         <div>
           <h3 className="text-xl font-semibold pb-5">Contact</h3>
-          <h4>About Us</h4>
-          <h4>Contact Us</h4>
+          <Link to="/aboutus">
+            <h4>About Us</h4>
+          </Link>
+          <Link to="/contactus">
+            <h4>Contact Us</h4>
+          </Link>
         </div>
         <div>
           <h3 className="text-xl font-semibold pb-5">Others Relavent</h3>
-          <h4>Home</h4>
-          <h4>Products</h4>
+          <Link to="/">
+            <h4>Home</h4>
+          </Link>
+          <Link to="/product">
+            <h4>Products</h4>
+          </Link>
         </div>
       </div>
 

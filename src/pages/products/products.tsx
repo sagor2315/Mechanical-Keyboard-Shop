@@ -24,14 +24,19 @@ import { Input } from "../../components/ui/input";
 import { Button } from "../../components/ui/button";
 import FilterByPrice from "./filter-by-price";
 import { Search } from "lucide-react";
-import { /* useEffect, */ useState } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useGetAllProductsQuery } from "../../redux/features/allProductsApi";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "../../components/ui/tooltip";
 
 type searchDataType = {
   searchField: string;
 };
-// type ProductsState = productProps["product"][];
 
 const ProductPage = () => {
   const [searchItem, setSearchItem] = useState<string>("");
@@ -40,7 +45,6 @@ const ProductPage = () => {
   const [sortOrder, setSortOrder] = useState<string>("desc");
 
   const [toggle, setToggle] = useState<boolean>(false);
-  // const [products, setProducts] = useState<ProductsState>([]);
 
   const { data } = useGetAllProductsQuery({
     searchItem,
@@ -49,7 +53,6 @@ const ProductPage = () => {
     sortOrder,
   });
   const productsAll = data?.data;
-  // console.log(productsAll);
 
   const form = useForm({
     defaultValues: {
@@ -59,7 +62,6 @@ const ProductPage = () => {
 
   function onSubmit(data: searchDataType) {
     setSearchItem(data?.searchField);
-    // console.log(data);
   }
 
   const handleToggle = () => {
@@ -73,14 +75,6 @@ const ProductPage = () => {
     setMinPrice(null);
     setSearchItem("");
   };
-
-  // useEffect(() => {
-  //   fetch("/product.json")
-  //     .then((data) => data.json())
-  //     .then((data) => setProducts(data));
-  // }, []);
-
-  // console.log(products?.[0]?.img);
 
   return (
     <div className="max-w-screen-xl mx-auto md:px-5 px-4 pb-5">
@@ -123,7 +117,7 @@ const ProductPage = () => {
 
           <div className="md:w-1/3 w-full flex gap-x-3 justify-end">
             <Button
-              className="md:w-1/2 w-full flex gap-x-2"
+              className="md:w-1/2 w-full flex gap-x-2 hover:bg-accent hover:transition-all hover:duration-500 transition-all duration-1000"
               onClick={handleToggle}
             >
               <span>Sort by Price</span>{" "}
@@ -135,7 +129,10 @@ const ProductPage = () => {
                 }`}
               />
             </Button>
-            <Button onClick={handleClearAll} className="md:w-1/2 w-full">
+            <Button
+              onClick={handleClearAll}
+              className="md:w-1/2 w-full hover:bg-accent hover:transition-all hover:duration-500 transition-all duration-1000"
+            >
               Clear All
             </Button>
           </div>
@@ -155,7 +152,24 @@ const ProductPage = () => {
               />
             </div>
             <CardHeader className="p-2 h-[70px]">
-              <CardTitle className="text-xl">{product?.title}</CardTitle>
+              <CardTitle className="text-xl">
+                {product?.title.slice(0, 65)}
+                <TooltipProvider>
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <Button
+                        variant="outline"
+                        className="p-1.5 bg-transparent hover:bg-transparent shadow-none border-none hover:text-text"
+                      >
+                        ...
+                      </Button>
+                    </TooltipTrigger>
+                    <TooltipContent className="w-60">
+                      <p>{product?.title}</p>
+                    </TooltipContent>
+                  </Tooltip>
+                </TooltipProvider>
+              </CardTitle>
             </CardHeader>
             <CardContent className="p-2">
               <Rating

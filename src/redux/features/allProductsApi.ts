@@ -36,7 +36,6 @@ const allProductsApi = baseApi.injectEndpoints({
 
         const queryString = queryParams.toString();
         const url = queryString ? `products?${queryString}` : "products";
-        // console.log(url);
 
         return { url, method: "GET" };
       },

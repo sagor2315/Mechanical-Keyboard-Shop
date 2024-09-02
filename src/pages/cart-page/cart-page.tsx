@@ -202,7 +202,7 @@ const CartPage = () => {
         <Button
           onClick={handleCheckout}
           disabled={totalQuantity === 0}
-          className="rounded-none"
+          className="hover:bg-accent hover:transition-all hover:duration-500 transition-all duration-1000"
         >
           Chekout Now
         </Button>

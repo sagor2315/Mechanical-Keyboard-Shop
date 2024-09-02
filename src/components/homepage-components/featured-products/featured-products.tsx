@@ -15,6 +15,13 @@ import ButtonReuseable, {
 } from "../../reusable-components/ButtonReuseable";
 
 import { useGetAllProductsQuery } from "../../../redux/features/allProductsApi";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "../../ui/tooltip";
+import { Button } from "../../ui/button";
 
 const FeaturedProducts = () => {
   const { data } = useGetAllProductsQuery({
@@ -44,7 +51,24 @@ const FeaturedProducts = () => {
               />
             </div>
             <CardHeader className="p-2">
-              <CardTitle className="text-xl">{product?.title}</CardTitle>
+              <CardTitle className="text-xl">
+                {product?.title.slice(0, 65)}
+                <TooltipProvider>
+                  <Tooltip>
+                    <TooltipTrigger asChild>
+                      <Button
+                        variant="outline"
+                        className="p-1.5 bg-transparent hover:bg-transparent shadow-none border-none hover:text-text"
+                      >
+                        ...
+                      </Button>
+                    </TooltipTrigger>
+                    <TooltipContent className="w-60">
+                      <p>{product?.title}</p>
+                    </TooltipContent>
+                  </Tooltip>
+                </TooltipProvider>
+              </CardTitle>
             </CardHeader>
             <CardContent className="p-2">
               <Rating

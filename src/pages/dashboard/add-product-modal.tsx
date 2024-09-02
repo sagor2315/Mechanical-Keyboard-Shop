@@ -25,8 +25,6 @@ import {
 import { Input } from "../../components/ui/input";
 import { useCreateNewProductMutation } from "../../redux/features/createProduct";
 
-// import Swal from "sweetalert2";
-
 type ProductPropsType = {
   image: string;
   title: string;
@@ -40,10 +38,6 @@ type ProductPropsType = {
 export function AddProductModal() {
   const [createNewProduct] = useCreateNewProductMutation();
 
-  // console.log("the data =>", data);
-  // console.log("the error =>", error);
-  // console.log("the error =>", createNewProduct);
-
   const form = useForm({
     defaultValues: {
       image: "",
@@ -52,31 +46,18 @@ export function AddProductModal() {
       brand: "",
       stock: 0,
       price: 0,
-
       description: "",
     },
   });
 
   async function onSubmit(data: ProductPropsType) {
     try {
-      // const response = await fetch(
-      //   "http://localhost:5000/api/products/create-product",
-      //   {
-      //     method: "POST",
-      //     headers: {
-      //       "Content-Type": "application/json",
-      //     },
-      //     body: JSON.stringify(data),
-      //   }
-      // );
-
-      // if (!response.ok) {
-      //   throw new Error("Something went wrong!");
-      // }
-      // const result = await response.json();
-      // console.log("product created successfully", result);
-
-      const productInfo = data;
+      const productInfo = {
+        ...data,
+        rating: Number(data.rating),
+        price: Number(data.price),
+        stock: Number(data.stock),
+      };
       const res = await createNewProduct(productInfo);
       const finalData = res?.data;
       console.log("The post new Product", finalData);
@@ -84,7 +65,7 @@ export function AddProductModal() {
       console.log(error);
     }
 
-    // console.log(data);
+    console.log(data);
   }
 
   return (

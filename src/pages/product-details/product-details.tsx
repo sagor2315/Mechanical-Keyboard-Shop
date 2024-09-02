@@ -17,10 +17,8 @@ const ProductDetails = () => {
     sortOrder: "",
   });
   const productsAll = data?.data as productProps["product"][];
-  // console.log(productsAll);
 
   const { id } = useParams<{ id: string }>();
-  // console.log(id);
 
   const dispatch = useAppDispatch();
 
@@ -29,11 +27,9 @@ const ProductDetails = () => {
   let specificProduct;
   if (cartData) {
     specificProduct = cartData.find((data) => data?._id === id);
-    // console.log(specificProduct);
   }
 
   const singleProduct = productsAll?.find((product) => product?._id === id);
-  // console.log(singleProduct);
 
   const handleAddToCart = () => {
     if (!singleProduct) {
@@ -54,7 +50,7 @@ const ProductDetails = () => {
   };
 
   return (
-    <div className="max-w-screen-xl mx-auto md:px-5 px-4 py-5 bg-background lg:h-[calc(100vh-70px)] ">
+    <div className="max-w-screen-xl mx-auto md:px-5 px-4 py-5 bg-background">
       <div className="grid md:grid-cols-2 grid-cols-1 gap-5">
         <div>
           <img src={singleProduct?.image} alt="img" />
@@ -89,18 +85,25 @@ const ProductDetails = () => {
                 readOnly
               />
             </div>
-            <div>
-              <p>{singleProduct?.description}</p>
-            </div>
           </div>
 
           <Button
+            className="hover:bg-accent hover:transition-all hover:duration-500 transition-all duration-1000"
             onClick={handleAddToCart}
             disabled={singleProduct?.stock === 0}
           >
             Add To Cart
           </Button>
+          <div className="pt-2 md:hidden lg:block">
+            <h3 className="text-text font-semibold text-xl py-1">
+              About This Product
+            </h3>
+            <p>{singleProduct?.description.slice(0, 283)}</p>
+          </div>
         </div>
+      </div>
+      <div className="pt-5">
+        <p>{singleProduct?.description}</p>
       </div>
     </div>
   );

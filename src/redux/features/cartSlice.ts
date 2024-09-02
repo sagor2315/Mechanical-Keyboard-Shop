@@ -31,37 +31,6 @@ export const cartSlice = createSlice({
   name: "cart",
   initialState,
   reducers: {
-    // addToCart: (state, action: PayloadAction<CartTypes>) => {
-    //   const productAll = action.payload;
-    //   const existingProductData = state?.cartData?.find(
-    //     (data) => data?._id === productAll?._id
-    //   );
-
-    //   if (productAll?.stock > 0) {
-    //     if (existingProductData && existingProductData?.stock > 0) {
-    //       existingProductData.quantity++;
-    //       existingProductData.stock--;
-    //       existingProductData.totalPrice =
-    //         (existingProductData.totalPrice ?? 0) + productAll.price;
-    //     }
-    //     if (!existingProductData) {
-    //       state.cartData.push({
-    //         ...productAll,
-    //         stock: productAll.stock - 1,
-    //         quantity: 1,
-    //         totalPrice: productAll.price,
-    //       });
-    //       // state.stockAll = productAll.stock--;
-    //     }
-
-    //     state.totalQuantity++;
-    //     state.totalPrice += productAll.price;
-    //     // state.stockAll = productAll.stock--;
-    //   } else {
-    //     console.log("Cannot add product with zero or negative quantity");
-    //   }
-    // },
-
     addToCart: (state, action: PayloadAction<CartTypes>) => {
       const productAll = action.payload;
       const existingProductData = state?.cartData?.find(

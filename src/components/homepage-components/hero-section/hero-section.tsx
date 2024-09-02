@@ -1,16 +1,24 @@
 import * as React from "react";
 import Autoplay from "embla-carousel-autoplay";
 
-import img1 from "../../../img/Untitled-1.png";
-import img2 from "../../../img/another.png";
-
 import imgage1 from "../../../img/image1.png";
 import imgage2 from "../../../img/image2.png";
 import imgage3 from "../../../img/image3.png";
 import imgage4 from "../../../img/image4.png";
 import imgage5 from "../../../img/image5.png";
 import imgage6 from "../../../img/image7.png";
-import { Carousel, CarouselContent, CarouselItem } from "../../ui/carousel";
+import poster from "../../../img/image2.png";
+
+import video from "../../../img/video.mp4";
+import video2 from "../../../img/video2.mp4";
+
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "../../ui/carousel";
 import { Card, CardContent } from "../../ui/card";
 import { Progress } from "../../ui/progress";
 
@@ -28,22 +36,19 @@ export function HeroSection() {
   );
 
   return (
-    <div className="">
-      <div className="grid lg:grid-cols-12 gap-3 w-full lg:h-[calc(100vh-64px)]">
+    <div className="max-w-screen-xl mx-auto md:px-5 px-4 pt-2">
+      <div className="grid lg:grid-cols-12 w-full bg-black">
         <div className="col-span-8 row-span-6 w-full h-full flex">
           <Carousel
             plugins={[plugin.current]}
-            className="w-full h-full border border-black bg-black"
+            className="w-full h-full"
             onMouseEnter={plugin.current.stop}
             onMouseLeave={plugin.current.reset}
           >
-            <CarouselContent className="h-full border border-black">
+            <CarouselContent className="h-full">
               {images.map((data, index) => (
-                <CarouselItem
-                  key={index}
-                  className="h-full relative bottom-0 border border-black"
-                >
-                  <Card className="rounded-none  h-full border border-black shadow-none">
+                <CarouselItem key={index} className="h-full relative bottom-0 ">
+                  <Card className="rounded-none  h-full  shadow-none">
                     <CardContent className="flex items-center justify-center p-0 rounded-0">
                       <div className="absolute  inset-0 flex flex-col justify-center bg-black bg-opacity-60">
                         <div className="flex gap-2 justify-center items-center py-2">
@@ -76,14 +81,26 @@ export function HeroSection() {
                 </CarouselItem>
               ))}
             </CarouselContent>
+            <CarouselPrevious />
+            <CarouselNext />
           </Carousel>
         </div>
         <div className="hidden lg:block lg:col-span-4 col-span-8 row-span-3 bg-black bg-opacity-60">
-          <img src={img1} className="object-cover h-full w-full" alt="" />
+          <video
+            autoPlay
+            loop
+            muted
+            poster={poster}
+            className="w-full h-full object-cover"
+          >
+            <source src={video} type="video/mp4" />
+          </video>
         </div>
 
         <div className="hidden lg:block row-span-3 lg:col-span-4 col-span-8">
-          <img src={img2} className="object-cover h-full w-full" alt="" />
+          <video autoPlay loop muted className="w-full h-full object-cover">
+            <source src={video2} type="video/mp4" />
+          </video>
         </div>
       </div>
     </div>

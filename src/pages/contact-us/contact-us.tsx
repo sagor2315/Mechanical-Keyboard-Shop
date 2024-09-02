@@ -58,7 +58,9 @@ const Contactus = () => {
               />
             </div>
             <div>
-              <Button>Send</Button>
+              <Button className="hover:bg-accent hover:transition-all hover:duration-500 transition-all duration-1000">
+                Send
+              </Button>
             </div>
           </div>
         </CardContent>

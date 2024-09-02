@@ -1,13 +1,8 @@
 import { BadgeX } from "lucide-react";
-// import { Badge } from "../../components/ui/badge";
+
 import { Button } from "../../components/ui/button";
 import { Card, CardContent, CardTitle } from "../../components/ui/card";
-// import {
-//   DropdownMenu,
-//   DropdownMenuContent,
-//   DropdownMenuItem,
-//   DropdownMenuTrigger,
-// } from "../../components/ui/dropdown-menu";
+
 import {
   Table,
   TableBody,
@@ -31,7 +26,7 @@ const Dashboard = () => {
     sortOrder: "",
   });
   const productsAll = data?.data as productProps["product"][];
-  // console.log(productsAll);
+
   const [delteProduct] = useDelteProductMutation();
 
   const handleDeleteProduct = (data: productProps["product"]) => {
@@ -58,7 +53,7 @@ const Dashboard = () => {
 
   return (
     <div className="max-w-screen-xl mx-auto md:px-5 px-4 py-5 bg-background">
-      <Card className="flex justify-between items-center p-4 mb-5 bg-accent bg-opacity-15">
+      <Card className="flex justify-between items-center p-4 mb-5 bg-accent bg-opacity-10">
         <CardTitle className="text-text md:text-xl text-lg">
           Add a Product
         </CardTitle>
@@ -89,32 +84,10 @@ const Dashboard = () => {
                     ${data?.price}
                   </TableCell>
                   <TableCell className="hidden sm:table-cell">
-                    {/* <Badge className="text-xs" variant="outline"> */}
                     {data?.brand}
-                    {/* </Badge> */}
                   </TableCell>
 
                   <TableCell className="text-right">
-                    {/* <DropdownMenu>
-                      <DropdownMenuTrigger>
-                        <Button
-                          // aria-haspopup="true"
-                          size="icon"
-                          variant="ghost"
-                        >
-                          <MoreHorizontal className="h-4 w-4" />
-                        </Button>
-                      </DropdownMenuTrigger>
-                      <DropdownMenuContent className="space-y-2 p-2">
-                        <DropdownMenuItem className="flex justify-center bg-primary cursor-pointer">
-                          <EditProductModal />
-                        </DropdownMenuItem>
-                        <DropdownMenuItem className="flex gap-x-2 justify-center bg-primary cursor-pointer">
-                          <span className="text-white">Delete</span>{" "}
-                          <BadgeX className="text-white" />
-                        </DropdownMenuItem>
-                      </DropdownMenuContent>
-                    </DropdownMenu> */}
                     <div className="flex gap-x-2 justify-end border">
                       <div>
                         <EditProductModal _id={data?._id} />

@@ -39,7 +39,6 @@ const FilterByPrice: React.FC<FilterByPriceProps> = ({
   function onSubmit(data: FormData) {
     setMaxPrice(data?.maxPrice);
     setMinPrice(data?.minPrice);
-    // console.log(data);
   }
 
   return (
@@ -71,6 +70,12 @@ const FilterByPrice: React.FC<FilterByPriceProps> = ({
                   <SelectItem value="40">40</SelectItem>
                   <SelectItem value="50">50</SelectItem>
                   <SelectItem value="60">60</SelectItem>
+                  <SelectItem value="70">70</SelectItem>
+                  <SelectItem value="80">80</SelectItem>
+                  <SelectItem value="90">90</SelectItem>
+                  <SelectItem value="100">100</SelectItem>
+                  <SelectItem value="110">110</SelectItem>
+                  <SelectItem value="120">120</SelectItem>
                 </SelectContent>
               </Select>
             </FormItem>
@@ -94,6 +99,12 @@ const FilterByPrice: React.FC<FilterByPriceProps> = ({
                   </SelectTrigger>
                 </FormControl>
                 <SelectContent>
+                  <SelectItem value="10">10</SelectItem>
+                  <SelectItem value="20">20</SelectItem>
+                  <SelectItem value="30">30</SelectItem>
+                  <SelectItem value="40">40</SelectItem>
+                  <SelectItem value="50">50</SelectItem>
+                  <SelectItem value="60">60</SelectItem>
                   <SelectItem value="70">70</SelectItem>
                   <SelectItem value="80">80</SelectItem>
                   <SelectItem value="90">90</SelectItem>
@@ -106,7 +117,12 @@ const FilterByPrice: React.FC<FilterByPriceProps> = ({
           )}
         />
 
-        <Button type="submit">Filter</Button>
+        <Button
+          className="hover:bg-accent hover:transition-all hover:duration-500 transition-all duration-1000"
+          type="submit"
+        >
+          Filter
+        </Button>
       </form>
     </Form>
   );

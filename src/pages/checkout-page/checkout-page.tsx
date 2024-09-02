@@ -72,7 +72,6 @@ const CheckoutPage = () => {
                 name="name"
                 render={({ field }) => (
                   <FormItem>
-                    {/* <FormLabel>Username</FormLabel> */}
                     <FormControl>
                       <Input placeholder="name" {...field} />
                     </FormControl>
@@ -169,16 +168,14 @@ const CheckoutPage = () => {
             </Card>
           </div>
 
-          {/* <Link to="/success-page"> */}
           <Button
             onClick={handleSuccessPage}
-            className="rounded-none mt-8"
+            className="mt-8 hover:bg-accent hover:transition-all hover:duration-500 transition-all duration-1000"
             type="submit"
             disabled={!isFormValid}
           >
             Confirm order
           </Button>
-          {/* </Link> */}
         </form>
       </Form>
     </div>

@@ -1,30 +1,58 @@
-# React + TypeScript + Vite
+# Mechanical Keyboard Land
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Welcome to the **KeyLand**! This is a comprehensive e-commerce platform dedicated to mechanical keyboard enthusiasts. Our site offers a modern and user-friendly online store with a wide range of mechanical keyboards and related products.
 
-Currently, two official plugins are available:
+## Live URL
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+You can view the live application at: [https://mechanical-keyboard-shop-sagor2315-sagors-projects-47d24db0.vercel.app/](https://mechanical-keyboard-shop-sagor2315-sagors-projects-47d24db0.vercel.app/)
 
-## Expanding the ESLint configuration
+## Features
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+- **Homepage:** Engaging hero section, featured products, service advertisements, top brands, customer reviews, and two extra sections Keyboard Accessories, FAQ highlighting the benefits of mechanical keyboards.
+- **Products Page:** Browse all products with search, filtering, sorting by price, and clear all options.
+- **Product Details Page:** View detailed product information and add items to the cart with real-time stock updates.
+- **Cart Page:** Manage cart items, adjust quantities, and proceed to checkout.
+- **Checkout Page:** After successfully add to cart you will complete your purchase with cash on delivery option.
+- **Product Management/Dashboard:** In dashboard page you will manage products, including adding, updating, and deleting items.
+- **About Us Page:** Information about the store with engaging design elements.
+- **Contact Us Page:** Detailed contact information, if you want you could directly send your query to the shop admin.
 
-- Configure the top-level `parserOptions` property like this:
+## Technology Stack
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
+**Frontend:**
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+- React with Vite
+- TypeScript
+- Redux
+- RTK Query
+- Tailwind CSS
+
+**Backend:**
+
+- Node.js
+- Express
+- MongoDB
+- Mongoose
+- TypeScript
+- Zod
+
+## Installation and Setup
+
+### Prerequisites
+
+- Node.js and npm (or Yarn) installed on your machine.
+
+### Clone the Repository
+
+git clone https://github.com/sagor2315/Mechanical-Keyboard-Shop.git (client)
+
+git clone https://github.com/sagor2315/Mechanical-Keyboard-Server-Site.git (server)
+
+cd mechanical-keyboard-shopnpm install
+
+for buid: npm run buildEnvironment Configuration
+
+Create a .env file in the server directory and add your environment variables: (for server only)
+
+PORT=
+DB_URL=

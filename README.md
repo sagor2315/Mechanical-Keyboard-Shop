@@ -48,7 +48,9 @@ git clone https://github.com/sagor2315/Mechanical-Keyboard-Shop.git (client)
 
 git clone https://github.com/sagor2315/Mechanical-Keyboard-Server-Site.git (server)
 
-cd mechanical-keyboard-shopnpm install
+cd mechanical-keyboard-shop
+
+npm install
 
 for buid: npm run buildEnvironment Configuration
 
